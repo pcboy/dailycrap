@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/pcboy/dailycrap.svg?branch=master)](https://travis-ci.org/pcboy/dailycrap)
+
 # Dailycrap
 
 Welcome to Dailycrap, the solution to micro management!  

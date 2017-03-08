@@ -3,6 +3,7 @@ language: ruby
 rvm:
   - 2.2.1
 before_install: gem install bundler -v 1.13.6
+script: rake test
 deploy:
   provider: rubygems
   api_key:

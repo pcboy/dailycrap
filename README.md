@@ -28,8 +28,8 @@ $> dailycrap -h
 	-t, --token-file=<s>      File containing your github token (https://github.com/settings/tokens)
 	-r, --repository=<s>      The repository you are working on
 	-o, --organization=<s>    Your organization name
-  -d, --day=<s>             The day you want to generate a report for (default is yesterday or last friday if monday)
-  -e, --edit                send generated report to your $EDITOR
+	-d, --day=<s>             Day you want to generate a report for (default is yesterday or last friday if monday)
+	-e, --edit                send generated report to your $EDITOR
 	-h, --help                Show this message
 
 $> dailycrap --token-file=.github_token --organization your_github_orgname --repository your_repo --edit

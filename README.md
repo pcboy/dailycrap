@@ -1,11 +1,11 @@
 # Dailycrap
 
-Welcome to Dailycrap, the solution to micro management!
-Your company is using scrum and force you to do that daily meeting?
-Dailycrap is here to generate that daily meeting for you.
-Because engineers use automated tools when they can.
+Welcome to Dailycrap, the solution to micro management!  
+Your company is using scrum and force you to do that daily meeting?  
+Dailycrap is here to generate that daily meeting for you.  
+Because engineers use automated tools when they can.  
 
-Note: This has been done in a few hours and may have some bugs, feel free to report those
+Note: This has been done in a few hours and may have some bugs, feel free to report those.  
 Expect a lot of breaking changes, it's alpha.
 
 ## Installation
@@ -14,10 +14,10 @@ gem install dailycrap
 ```
 
 ## Usage
-Dailycrap assumes your in progress PRs/issues have the label "in progress"
-It also assumes you are not working on weekends, so Yesterday becomes Friday when you run the script on Monday.
-Nothing else should matter
-You need a file containing only your github token see https://github.com/settings/tokens
+Dailycrap assumes your in progress PRs/issues have the label "in progress"  
+It also assumes you are not working on weekends, so Yesterday becomes Friday when you run the script on Monday.  
+Nothing else should matter  
+You need a file containing only your github token see https://github.com/settings/tokens  
 
 ```
 $> dailycrap -h

@@ -3,3 +3,11 @@ language: ruby
 rvm:
   - 2.2.1
 before_install: gem install bundler -v 1.13.6
+deploy:
+  provider: rubygems
+  api_key:
+    secure: "Y53gVgrP+lEnp3bpND/W3PS1IE+0Lm2/03ST86Vsa90gCcQUb6UIXVhEjx5Z670bLM5hmedhecglc9ukcWj7e8Li1WZZQH8UYiqOn/NhtK/gnx7eCRD2aAdXMzLqio50odc0iVhazNb558URuaffn6CF2lsdBBbo3QN8IuXVw5j952ELt3WrJ4uHBSfFEK/LT/ILWoqK8wMb+U+N6PVc0oqe+5z4naK4zs4BhKJnN/CE8CkMHCMMm78yQNB+jAdc+1qe1Q1EqnGFCY+iiRsX6OObfE3prMOfbVEHz6WBTQx7w8O8VzzQ66irBBKotr5XFWmnSbKWvXBw9Og6mC9z6sxzkax06JzQKTtCX4sU5LL+bLG75E5TLE+uC8JuGRSnIetz/jMB5Kdn/UCXzEyKPYM8M2twS/yoxNj73pNbG6wdnWwy9u/s2SpcCxmkweQ0y+tlCTFKyux1A1NBMJnjVcS5E/k6B1vxZm3WTTQi4o4i1ImbaofGhF1fP2Ta8J0hDJ477C6AnJF1CEw11aEAdaS6+3c0XsaVhsXrIzqc5JRcurZYrzVvLyZt0wR5B14SiQg35dnWfpTVDjs/u5oaJNzlkQ9CXJcfDqkYBuMxm91yCtyq3xlvOH2ouXqSa7Rsft3C5XvJPZZ9WUweGHIRdnpZJABga4N2n/SQIJaNeDU=" 
+    gem: dailycrap
+    on:
+      tags: true
+      repo: pcboy/dailycrap

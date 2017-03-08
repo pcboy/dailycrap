@@ -3,9 +3,6 @@ require "dailycrap/version"
 require 'github_api'
 require 'active_support/core_ext/object/try'
 
-require 'awesome_print'
-require 'looksee'
-
 module Dailycrap
   class Dailycrap
 
@@ -66,7 +63,7 @@ module Dailycrap
 
     def format_daily(worked_on_prs, closed_prs, in_progress, reviewed_prs)
       %Q{
-        Yesterday
+        #{@date.monday? ? 'Friday' : 'Yesterday'}
         \tWorked on:
         \t\t#{worked_on_prs.map{|x| x[:title]}.join("\n\t\t")}
 

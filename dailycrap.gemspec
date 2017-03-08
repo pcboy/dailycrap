@@ -12,6 +12,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{A ruby gem for people who prefer tools over meetings. If you hate scrum this is for you.}
   spec.description   = %q{}
   spec.homepage      = "https://github.com/pcboy/dailycrap"
+  spec.licenses      = ['WTFPL']
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})

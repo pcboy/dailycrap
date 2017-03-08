@@ -1,34 +1,52 @@
 # Dailycrap
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/dailycrap`. To experiment with that code, run `bin/console` for an interactive prompt.
+Welcome to Dailycrap, the solution to micro management!
+Your company is using scrum and force you to do that daily meeting?
+Dailycrap is here to generate that daily meeting for you.
+Because engineers use automated tools when they can.
 
-TODO: Delete this and the text above, and describe your gem
+Note: This has been done in a few hours and may have some bugs, feel free to report those
+Expect a lot of breaking changes, it's alpha.
 
 ## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'dailycrap'
+```
+gem install dailycrap
 ```
 
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install dailycrap
-
 ## Usage
+Dailycrap assumes your in progress PRs/issues have the label "in progress"
+It also assumes you are not working on weekends, so Yesterday becomes Friday when you run the script on Monday.
+Nothing else should matter
+You need a file containing only your github token see https://github.com/settings/tokens
 
-TODO: Write usage instructions here
+```
+$> dailycrap -h
+	Dailycrap is here to generate your daily meeting.
+	-t, --token-file=<s>      File containing your github token (https://github.com/settings/tokens)
+	-r, --repository=<s>      The repository you are working on
+	-o, --organization=<s>    Your organization name
+	-h, --help                Show this message
 
-## Development
+$> dailycrap --token-file=.github_token --organization your_github_orgname --repository your_repo
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+Yesterday
+  Worked on:
+    Connect to #1204 Do this wonderful stuff
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+  Closed:
+    Test PR, ignore
+
+  Reviewed:
+    PR 42, killing Scrum
+    
+
+Today:
+  In progress:
+    Connect to #123124 Wonderful feature
+```
+
+## License
+dailycrap is under the WTFPL. Do whatever you want.
 
 ## Contributing
 

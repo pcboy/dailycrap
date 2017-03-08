@@ -6,7 +6,7 @@ require 'trollop'
 
 opts = Trollop::options do
   banner <<-EOS
-    Trollop is here to generate your daily meeting.
+    Dailycrap is here to generate your daily meeting.
   EOS
 
   opt :token_file, "File containing your github token (https://github.com/settings/tokens)", required: true, type: :string
@@ -15,7 +15,7 @@ opts = Trollop::options do
 end
 
 crap = Dailycrap::Dailycrap.new(File.read(opts[:token_file]).strip,
-                                date: Date.today - 1,
+                                date: Date.today.monday? ? Date.today - 3 : Date.today - 1,
                                 repo: opts[:repository],
                                 organization: opts[:organization])
 

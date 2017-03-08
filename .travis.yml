@@ -8,7 +8,7 @@ deploy:
   provider: rubygems
   api_key:
     secure: "L6sfMFcg7MwFgA+uZVJHLZXnITdip8m3TW1HrwmrRY3GjKWd+Ev8L1zY/vnI39W8WRcroDBBRLHXrqo3f1EWNVtmY9rA+nkscqz8QvpgjWKM6QisSqK7Wwy+LzRWiZujDbInKN24KvexpcTUI3poiUTo4fjsxtXG4IA5MF4orXGKqnikY++HdZdK6wV+2XURk4c9UDOgFOc83RuLKVf4lRa0FXUCIbBajV+qxM2KTVJxj9z9Pl+TMZizehuAgCteRjnf73Z8/807Qnv8SThKAXGW6Uh6gCQnG9/WtexUjOk4AjBGajnm9HA4V0FX8AyWsonF2fJ0+FXJPOoyfSfBDid7Rsjyvd4Sgs+U+0gNn361Lqo9AyVhssXnLNXLfkooF93oy40ru8ma5cvQkgof69InJHyDcYl9BASbPpqVWDRunZyPuLKrAWg3mqnexKU0CwPVyern2bYHOGPbvidFKVRzfU0WZVJOXUBHeAFRlsov3xzTg0ftyJODZ8GLJIBJ0UTmLGLnrgk2jLXb0ca36cvvln3OFYpXHC9lFNCcp5wUo0IS7NINIgweYwDCLYCnYm8tYYJ473k/wEeA7xC0udaPIAJ0CdiTwI1Iu6gsWsxxjabwFDubRCTCzcBDhETdOkbRBL9PyqoTeTKkaWTJijkMTWD2B5fLlTFNIWby1v4="
-    gem: dailycrap
-    on:
-      tags: true
-      repo: pcboy/dailycrap
+  gem: dailycrap
+  on:
+    tags: true
+    repo: pcboy/dailycrap

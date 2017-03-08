@@ -3,6 +3,7 @@
 require 'dailycrap'
 require 'date'
 require 'trollop'
+require 'tempfile'
 
 opts = Trollop::options do
   banner <<-EOS
@@ -12,11 +13,23 @@ opts = Trollop::options do
   opt :token_file, "File containing your github token (https://github.com/settings/tokens)", required: true, type: :string
   opt :repository, "The repository you are working on", required: true, type: :string
   opt :organization, "Your organization name", default: nil, type: :string
+  opt :day, "The day you want to generate a report for (default is yesterday or last friday if monday)", type: :string
+  opt :edit, "Send generated report to your $EDITOR", default: false
 end
 
 crap = Dailycrap::Dailycrap.new(File.read(opts[:token_file]).strip,
-                                date: Date.today.monday? ? Date.today - 3 : Date.today - 1,
+                                date: opts[:day] ? Date.parse(opts[:day]) : (Date.today.monday? ? Date.today - 3 : Date.today - 1),
                                 repo: opts[:repository],
                                 organization: opts[:organization])
 
-puts crap.daily
+report = crap.daily
+puts report
+
+if opts[:edit]
+  file = Tempfile.new('dailycrap')
+  file.write(report)
+  file.close
+  pid = spawn("#{ENV['EDITOR']} #{file.path}")
+  Process.wait(pid)
+  file.unlink
+end

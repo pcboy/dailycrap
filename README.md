@@ -16,6 +16,7 @@ gem install dailycrap
 ## Usage
 Dailycrap assumes your in progress PRs/issues have the label "in progress"  
 It also assumes you are not working on weekends, so Yesterday becomes Friday when you run the script on Monday.  
+You can always use --day '2017-01-01' to specify a specific date (supports formats supported by Date.parse in ruby)  
 Nothing else should matter  
 You need a file containing only your github token see https://github.com/settings/tokens  
 
@@ -25,9 +26,11 @@ $> dailycrap -h
 	-t, --token-file=<s>      File containing your github token (https://github.com/settings/tokens)
 	-r, --repository=<s>      The repository you are working on
 	-o, --organization=<s>    Your organization name
+  -d, --day=<s>             The day you want to generate a report for (default is yesterday or last friday if monday)
+  -e, --edit                send generated report to your $EDITOR
 	-h, --help                Show this message
 
-$> dailycrap --token-file=.github_token --organization your_github_orgname --repository your_repo
+$> dailycrap --token-file=.github_token --organization your_github_orgname --repository your_repo --edit
 
 Yesterday
   Worked on:

@@ -23,7 +23,7 @@ module Dailycrap
       closed_prs = []
       reviewed_prs = []
 
-      in_progress_issues = api_from_date(github.issues) do |iterator|
+      in_progress_issues = iterate(github.issues) do |iterator|
         iterator.list(user: @organization, repo: @repo, state: 'open', labels: 'in progress')
       end.select{|x| x.assignee.login == @user }.map{|x| x.title}
 
@@ -54,7 +54,7 @@ module Dailycrap
 
     def events(date)
       events = github.activity.events.performed(@user)
-      api_at_date(events, date) do |iterator|
+      iterate(events, date: date, behavior: :at_date) do |iterator|
         iterator.body
       end.select{|x| x.repo.name.split('/').last == @repo}
     end
@@ -65,22 +65,22 @@ module Dailycrap
       %Q{
         #{@date.monday? ? 'Friday' : 'Yesterday'}
         \tWorked on:
-        \t\t#{worked_on_prs.map{|x| x[:title]}.join("\n\t\t")}
+        \t\t#{worked_on_prs.map{|x| x[:title]}.uniq.join("\n\t\t")}
 
         \tClosed:
-        \t\t#{closed_prs.join("\n\t\t")}
+        \t\t#{closed_prs.uniq.join("\n\t\t")}
 
         \tReviewed:
-        \t\t#{reviewed_prs.join("\n\t\t")}
+        \t\t#{reviewed_prs.uniq.join("\n\t\t")}
         
         Today:
         \tIn progress:
-        \t\t#{in_progress.join("\n\t\t")}
+        \t\t#{in_progress.uniq.join("\n\t\t")}
       }.gsub(/^ +/, '')
     end
 
     def pr_from_ref(ref)
-      prs = api_from_date(github.pull_requests, @date) do |iterator|
+      prs = iterate(github.pull_requests, date: @date, behavior: :from_date) do |iterator|
         iterator.list(user: @organization, repo: @repo, state: 'all')
       end.map{|x| {ref: x.head.ref, title: x.title, created_at: x.created_at, merged_at: x.merged_at, href: x['_links']['self']['href'] }}
       prs.find{|x| x[:ref] == ref.gsub('refs/heads/', '')}
@@ -94,7 +94,7 @@ module Dailycrap
       @_github ||= Github.new oauth_token: @token
     end
 
-    def api_at_date(iterator, date=nil)
+    def iterate(iterator, date: nil, behavior: :at_date)
       total_events = []
       begin
         data = yield(iterator)
@@ -102,19 +102,14 @@ module Dailycrap
         break if date && data.any?{|x| Date.parse(x.updated_at || x.created_at) < date}
         iterator = iterator.try(:next_page)
       end while iterator && iterator.has_next_page?
-      date ? total_events.select{ |x| Date.parse(x.updated_at || x.created_at) == date } : total_events
+      if date
+        if behavior == :at_date
+          total_events.select!{ |x| Date.parse(x.updated_at || x.created_at) == date }
+        elsif behavior == :from_date
+          total_events.select!{ |x| Date.parse(x.updated_at || x.created_at) >= date }
+        end
+      end
+      total_events
     end
-
-    def api_from_date(iterator, date=nil)
-      total_events = []
-      begin
-        data = yield(iterator)
-        total_events += data
-        break if date && data.any?{|x| Date.parse(x.updated_at || x.created_at) < date}
-        iterator = iterator.try(:next_page)
-      end while iterator && iterator.has_next_page?
-      date ? total_events.select{ |x| Date.parse(x.updated_at || x.created_at) >= date } : total_events
-    end
-
   end
 end

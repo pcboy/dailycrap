@@ -37,9 +37,7 @@ $> dailycrap --token-file=.github_token --organization your_github_orgname --rep
 Yesterday
   Worked on:
     Connect to #1204 Do this wonderful stuff
-
-  Closed:
-    Test PR, ignore
+    [CLOSED :tada:] Test PR, ignore
 
   Reviewed:
     PR 42, killing Scrum

@@ -3,6 +3,8 @@ require "dailycrap/version"
 require 'github_api'
 require 'active_support/core_ext/object/try'
 
+require 'awesome_print'
+
 module Dailycrap
   class Dailycrap
 
@@ -37,11 +39,11 @@ module Dailycrap
           # Created a new branch
         when 'IssuesEvent'
         when 'PullRequestReviewCommentEvent'
-          unless event.payload.pull_request.user.login == @user
+          unless event.payload.pull_request.assignees.map(&:login).include?(@user)
             reviewed_prs << event.payload.pull_request.title
           end
         when 'PullRequestEvent'
-          if event.payload.action == 'closed'
+          if event.payload.action == 'closed' && event.payload.pull_request.assignees.map(&:login).include?(@user)
             closed_prs << event.payload.pull_request.title
           end
         else
@@ -65,10 +67,7 @@ module Dailycrap
       %Q{
         #{@date.monday? ? 'Friday' : 'Yesterday'}
         \tWorked on:
-        \t\t#{worked_on_prs.map{|x| x[:title]}.uniq.join("\n\t\t")}
-
-        \tClosed:
-        \t\t#{closed_prs.uniq.join("\n\t\t")}
+        \t\t#{worked_on_prs.map{|x| (closed_prs.include?(x[:title]) ? '[DONE :tada:] ' : '') + x[:title]}.uniq.join("\n\t\t")}
 
         \tReviewed:
         \t\t#{reviewed_prs.uniq.join("\n\t\t")}

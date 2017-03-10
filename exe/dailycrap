@@ -1,5 +1,11 @@
 #!/usr/bin/env ruby
 
+begin
+  Object.const_get('Dailycrap')
+rescue NameError
+  require 'bundler/setup'
+end
+
 require 'dailycrap'
 require 'date'
 require 'trollop'

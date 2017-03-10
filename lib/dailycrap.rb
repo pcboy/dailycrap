@@ -33,7 +33,8 @@ module Dailycrap
         case event.type
         when 'PushEvent' 
           if event.payload.ref != 'refs/heads/master'
-            worked_on_prs << pr_from_ref(event.payload.ref) || event.payload.ref.gsub('refs/head/', '')
+            pr = pr_from_ref(event.payload.ref) || {title: event.payload.ref.gsub('refs/heads/', '')}
+            worked_on_prs << pr
           end
         when 'CreateEvent'
           # Created a new branch

@@ -27,7 +27,7 @@ module Dailycrap
 
       in_progress_issues = iterate(github.issues) do |iterator|
         iterator.list(user: @organization, repo: @repo, state: 'open', labels: 'in progress')
-      end.select{|x| x.assignee.login == @user }.map{|x| x.title}
+      end.select{|x| x.assignee.try(:login) == @user }.map{|x| x.title}
 
       events(@date).map do |event|
         case event.type
@@ -66,7 +66,7 @@ module Dailycrap
 
     def format_daily(worked_on_prs, closed_prs, in_progress, reviewed_prs)
       %Q{
-        #{@date.monday? ? 'Friday' : 'Yesterday'}
+        #{(@date.friday? && Date.today.monday?) ? 'Friday' : 'Yesterday'}
         \tWorked on:
         \t\t#{worked_on_prs.map{|x| (closed_prs.include?(x[:title]) ? '[DONE :tada:] ' : '') + x[:title]}.uniq.join("\n\t\t")}
 

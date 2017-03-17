@@ -27,7 +27,7 @@ module Dailycrap
 
       in_progress_issues = iterate(github.issues) do |iterator|
         iterator.list(user: @organization, repo: @repo, state: 'open', labels: 'in progress')
-      end.select{|x| x.assignee.try(:login) == @user }.map{|x| x.title}
+      end.select{|x| (x.assignee ? x.assignee.login : (x.pull_request ? x.user.login : nil)) == @user }.map{|x| x.title}
 
       events(@date).map do |event|
         case event.type

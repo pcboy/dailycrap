@@ -99,14 +99,14 @@ module Dailycrap
       begin
         data = yield(iterator)
         total_events += data
-        break if date && data.any?{|x| Date.parse(x.updated_at || x.created_at) < date}
+        break if date && data.any?{|x| DateTime.parse(x.updated_at || x.created_at) < date}
         iterator = iterator.try(:next_page)
       end while iterator && iterator.has_next_page?
       if date
         if behavior == :at_date
-          total_events.select!{ |x| Date.parse(x.updated_at || x.created_at) == date }
+          total_events.select!{ |x| DateTime.parse(x.updated_at || x.created_at) == date }
         elsif behavior == :from_date
-          total_events.select!{ |x| Date.parse(x.updated_at || x.created_at) >= date }
+          total_events.select!{ |x| DateTime.parse(x.updated_at || x.created_at) >= date }
         end
       end
       total_events
